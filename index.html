@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style type="text/css">
+
+
+
+</style>
+
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+<script src="assets/jquery/jquery-2.2.3.js"></script>
+
+</head>
+
+<body>
+
+	<div id="logo">
+
+		<img id="logopic" src="assets/images/emotionsB.png" height="150" width="280">
+
+	</div>
+
+	<div id="emotionButtons">
+
+	</div>
+
+	<br>
+	<br>
+	<br>
+	<form id="addEmotion">
+		<label for="emotion_input"><b>Add Emotion</b></label><br>
+		<input type="text" size="20" id="emotion_input"><br>
+		<input type="submit" id="submitEmotion">
+
+	</form>
+
+	<div id="emotions">
+
+	</div>
+
+<script type="text/javascript">
+
+var emotions = ['happy', 'sad', 'excited', 'bored', 'shocked']; 
+
+function makeButtons() {
+	$('div#emotionButtons').empty();
+
+	for (var i = 0; i < emotions.length; i++) {
+		var b = $('<button>');
+		b.addClass('emotion');
+		b.attr('data-name', emotions[i]);
+		b.text(emotions[i]);
+		$('#emotionButtons').append(b);
+	}
+}
+
+$('#submitEmotion').on('click', function() {
+	var emotion = $('#emotion_input').val().trim();
+	emotions.push(emotion);
+	makeButtons();    
+	return false;
+})
+
+$(document).on('click', '.emotion', function() {
+	$("div#emotions").empty();
+	var feelings = $(this).data('name');
+	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + feelings + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+	 $.ajax({
+            url: queryURL,
+            method: 'GET'
+            })
+	 .done(function(response) {
+		console.log(response);
+		var results = response.data;
+
+	for (var i = 0; i < results.length; i++) {
+		 var p = $('<p>');
+		 var imageDiv = $('<div>');
+		 imageDiv.addClass('imageBox');
+
+		(p).html('Rating: ' + results[i].rating);
+		var emotionPic = $('<img>');
+		emotionPic.addClass('emotionImage');
+		emotionPic.attr('src', results[i].images.fixed_height_still.url);
+		emotionPic.attr('data-still', results[i].images.fixed_height_still.url);
+		emotionPic.attr('data-state', 'still');
+		emotionPic.attr('data-animate', results[i].images.fixed_height.url);
+
+		$(imageDiv).html(p);
+		$(imageDiv).append(emotionPic);
+		$("div#emotions").append(imageDiv);
+	}
+
+	})
+})
+
+$(document).on('click', '.emotionImage', function() {
+		
+		var state = $(this).attr('data-state'); 
+		   
+		    if (state == 'still') {
+                $(this).attr('src', $(this).data('animate'));
+                $(this).attr('data-state', 'animate');
+            }
+
+            else {
+                $(this).attr('src', $(this).data('still'));
+                $(this).attr('data-state', 'still');
+            }
+});
+
+makeButtons();
+
+</script>
+</body>
+</html>

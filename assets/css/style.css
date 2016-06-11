@@ -1,0 +1,71 @@
+body {
+	font-family: 'Bradley Hand ITC';
+}
+
+p {
+    font-weight: bold;
+}
+
+div#logo {
+    float: right;
+    margin-right: 50px;
+}
+
+@font-face { 
+    font-family: 'Bradley Hand ITC'; 
+    src: url(../fonts/BRADHITC.ttf);
+} 
+
+
+input, button {
+	margin: 10px;
+    font-family: 'Bradley Hand ITC';
+
+}
+
+input[type="text"] {
+	font-size: 1.5em;
+}
+
+label {
+	margin-left: 8px;
+}
+
+div#emotionButtons {
+    margin-bottom: 50px;
+}
+
+button {
+    background-color: #FF66FF; 
+    border: none;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+input#submitEmotion {
+	background-color: #FF66FF; 
+    border: none;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+}
+
+form#addEmotion {
+	float: right;
+	margin-right: 50px;
+	margin-bottom: 800px;
+}
+
+div.imageBox {
+    float: left;
+    margin: 20px;
+}
+
